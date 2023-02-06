@@ -35,13 +35,13 @@ int	main(int argc, char **argv)
 			free (var);
 			return (0);
 		}
-		if (valid_map_is_valid(var) == 0)
-			printf("map drawing statrted\n");
+		if (paths_valid(var) == 0)
+			then_check_colors(var);
 		ft_free (var);
 		free (var);
 	}
 	else
 		ft_putstr("programe accepet programe name + map path\n", 2);
-	while (1);
+	// while (1);
 	return (0);
 }

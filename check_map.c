@@ -33,50 +33,49 @@ int	check_map(t_var *var, char **argv)
 	return (0);
 }
 
-int	check_left_and_up(t_var *var)
+char	*remove_spaces(char *str)
 {
-	var->i = 0;
-	while (var->map_elmnt[var->i])
+	char	*paths;
+	int		i;
+	int		j;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
 	{
-		if (var->map_elmnt[var->i][0] != '1')
-			return (1);
-		var->j = 0;
-		while (var->map_elmnt[var->i][var->j])
-		{
-			if (var->map_elmnt[0][var->j] != '1')
-				return (1);
-			var->j++;
-		}
-		var->i++;
+		if (str[i] <= 32)
+			j++;
+		i++;
 	}
-	return (0);
+	paths = ft_substr(str, 0, ft_strlen(str) - j);
+	return (paths);
 }
 
-int	check_right_and_down(t_var *var)
+int	paths_valid(t_var *var)
 {
-	var->j = 0;
-	while (var->map_elmnt[var->i - 1][var->j])
-	{
-		if (var->map_elmnt[var->i - 1][var->j] != '1')
-			return (1);
-		var->j++;
-	}
-	var->i = 0;
-	while (var->map_elmnt[var->i])
-	{
-		if (var->map_elmnt[var->i][var->j - 1] != '1')
-			return (1);
-		var->i++;
-	}
-	return (0);
-}
+	char	*paths;
+	char	*valid_paths;
 
-int	valid_map_is_valid(t_var *var)
-{
 	var->map_elmnt = ft_split(var->map, '\n');
-	if (check_left_and_up(var) == 1)
-		return (1);
-	if (check_right_and_down(var) == 1)
-		return (1);
+	var->i = 0;
+	while (var->map_elmnt[var->i])
+	{
+		paths = ft_strrchr(var->map_elmnt[var->i], '.');
+		if (!paths)
+			return (1);
+		valid_paths = remove_spaces(paths);
+		if (ft_strcmp(valid_paths, "./path_to_the_south_texture") == 0)
+			var->path_so = valid_paths;
+		else if (ft_strcmp(valid_paths, "./path_to_the_north_texture") == 0)
+			var->path_no = valid_paths;
+		else if (ft_strcmp(valid_paths, "./path_to_the_east_texture") == 0)
+			var->path_ea = valid_paths;
+		else if (ft_strcmp(valid_paths, "./path_to_the_west_texture") == 0)
+			var->path_we = valid_paths;
+		free (valid_paths);
+		var->i++;
+	}
 	return (0);
 }

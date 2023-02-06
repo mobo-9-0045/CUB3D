@@ -24,22 +24,18 @@ void	ft_putstr(char *str, int fd)
 	}
 }
 
-char	*ft_strrchr(const char *str, int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	char	*s;
-	int		i;
+	int	i;
 
-	s = (char *)str;
-	i = 0;
-	while (str[i] != '\0')
-		i++;
+	i = ft_strlen(s);
 	while (i >= 0)
 	{
-		if (s[i] == (char) c)
-			return (s + i);
+		if (s[i] == (char)c)
+			return ((char *)s + i);
 		i--;
 	}
-	return (s);
+	return (NULL);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -58,4 +54,29 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	}
 	return (0);
+}
+
+char	*ft_substr(char const *s, int start, int len)
+{
+	char	*string;
+	int		i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (start >= ft_strlen(s))
+		string = malloc(sizeof(char));
+	else if (len > ft_strlen(s))
+		string = malloc(sizeof(char) * (ft_strlen(s) - start + 1));
+	else
+		string = malloc(sizeof (char) * (len + 1));
+	if (!string)
+		return (NULL);
+	while (s[i] && i < len && i + start < ft_strlen(s))
+	{
+		string[i] = s[start + i];
+		i++;
+	}
+	string[i] = '\0';
+	return (string);
 }
