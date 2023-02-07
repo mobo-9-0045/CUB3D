@@ -20,62 +20,74 @@ int	check_map(t_var *var, char **argv)
 	map_ext = ft_strrchr(argv[1], '.');
 	if (ft_strcmp(map_ext, ".cub") != 0)
 	{
-		ft_putstr("map should must be .cub extention\n", 2);
+		ft_putstr("map must be .cub extention\n", 2);
 		return (1);
 	}
 	fd_map = open (argv[1], O_RDONLY, 600);
 	if (fd_map < 0)
 	{
 		ft_putstr("Error in map fd", 2);
+		close(fd_map);
 		return (1);
 	}
 	var->map = get_next_line(fd_map);
 	return (0);
 }
 
-char	*remove_spaces(char *str)
+int	check_so_no(char *str, t_var *var)
 {
-	char	*paths;
-	int		i;
-	int		j;
-
-	if (!str)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (str[i])
+	if (ft_strstr(var->map_elmnt[var->i], "SO") != NULL)
 	{
-		if (str[i] <= 32)
-			j++;
-		i++;
+		str = ft_strstr(var->map_elmnt[var->i], "SO");
+		var->path_so = ft_strchr(str, '.');
 	}
-	paths = ft_substr(str, 0, ft_strlen(str) - j);
-	return (paths);
+	if (ft_strstr(var->map_elmnt[var->i], "NO") != NULL)
+	{
+		str = ft_strstr(var->map_elmnt[var->i], "NO");
+		var->path_no = ft_strchr(str, '.');
+	}
+	return (0);
 }
 
-int	paths_valid(t_var *var)
+void	check_ea_we(char *str, t_var *var)
 {
-	char	*paths;
+	if (ft_strstr(var->map_elmnt[var->i], "EA") != NULL)
+	{
+		str = ft_strstr(var->map_elmnt[var->i], "EA");
+		var->path_ea = ft_strchr(str, '.');
+	}
+	if (ft_strstr(var->map_elmnt[var->i], "WE") != NULL)
+	{
+		str = ft_strstr(var->map_elmnt[var->i], "WE");
+		var->path_we = ft_strchr(str, '.');
+	}
+}
+
+char	*chaeck_xpm(char *str, t_var *var)
+{
+	if (!str || ft_strcmp(str, ".xpm") != 0)
+		return (NULL);
+	check_so_no(str, var);
+	check_ea_we(str, var);
+	return (str);
+}
+
+void	paths_valid(t_var *var)
+{
+	char	*xpm;
 	char	*valid_paths;
 
 	var->map_elmnt = ft_split(var->map, '\n');
 	var->i = 0;
 	while (var->map_elmnt[var->i])
 	{
-		paths = ft_strrchr(var->map_elmnt[var->i], '.');
-		if (!paths)
-			return (1);
-		valid_paths = remove_spaces(paths);
-		if (ft_strcmp(valid_paths, "./path_to_the_south_texture") == 0)
-			var->path_so = valid_paths;
-		else if (ft_strcmp(valid_paths, "./path_to_the_north_texture") == 0)
-			var->path_no = valid_paths;
-		else if (ft_strcmp(valid_paths, "./path_to_the_east_texture") == 0)
-			var->path_ea = valid_paths;
-		else if (ft_strcmp(valid_paths, "./path_to_the_west_texture") == 0)
-			var->path_we = valid_paths;
-		free (valid_paths);
+		xpm = ft_strrchr(var->map_elmnt[var->i], '.');
+		if (!xpm)
+			return ;
+		valid_paths = chaeck_xpm(xpm, var);
+		if (!valid_paths)
+			return ;
 		var->i++;
 	}
-	return (0);
+	return ;
 }

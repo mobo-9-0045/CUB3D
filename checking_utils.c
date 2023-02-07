@@ -24,20 +24,6 @@ void	ft_putstr(char *str, int fd)
 	}
 }
 
-char	*ft_strrchr(const char *s, int c)
-{
-	int	i;
-
-	i = ft_strlen(s);
-	while (i >= 0)
-	{
-		if (s[i] == (char)c)
-			return ((char *)s + i);
-		i--;
-	}
-	return (NULL);
-}
-
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	unsigned char	*_s1;
@@ -79,4 +65,26 @@ char	*ft_substr(char const *s, int start, int len)
 	}
 	string[i] = '\0';
 	return (string);
+}
+
+char	*ft_strstr(char *str, char *to_find)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (to_find[0] == '\0')
+		return (str);
+	while (str[i] != '\0')
+	{
+		j = 0;
+		while (str[i + j] != '\0' && str[i + j] == to_find[j])
+		{
+			if (to_find[j + 1] == '\0')
+				return (&str[i]);
+			++j;
+		}
+		++i;
+	}
+	return (NULL);
 }

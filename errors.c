@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aomman <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 21:27:03 by aomman            #+#    #+#             */
-/*   Updated: 2023/02/07 14:06:21 by aomman           ###   ########.fr       */
+/*   Created: 2023/02/07 15:34:38 by aomman            #+#    #+#             */
+/*   Updated: 2023/02/07 15:35:02 by aomman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include"cub3d.h"
 
-void	ft_free(t_var *var)
+int	check_errors(t_var *var, char **argv)
 {
-	var->i = 0;
-	while (var->map_elmnt[var->i])
+	if (check_map(var, argv) == 1)
 	{
-		free (var->map_elmnt[var->i]);
-		var->i++;
-	}
-	free (var->f_colors);
-	free (var->map);
-	free (var->map_elmnt);
-}
-
-int	main(int argc, char **argv)
-{
-	t_var	*var;
-
-	if (argc == 2)
-	{
-		var = malloc(sizeof(t_var));
-		if (check_errors(var, argv) == 1)
-			return (1);
-		ft_free (var);
 		free (var);
+		return (1);
 	}
-	else
-		ft_putstr("programe accepet programe name + map path\n", 2);
+	paths_valid(var);
+	if (check_texture(var) == 1)
+		return (1);
+	if (check_colors(var) == 1)
+		return (1);
 	return (0);
 }
