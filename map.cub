@@ -1,12 +1,11 @@
 
-SO ./so good so.xpm
-NO ./no good no.xpm
-EA ./ea good ea.xpm
-WE ./we good we.xpm
+            SO ./so_good_so.xpm
+  NO ./no_good_no.xpm
+       EA ./ea_good_ea.xpm
+WE ./we_good_we.xpm
 
-F                220,100,222
-C 225,30,0
-  
+F             221,100,222
+C 225,30,12
 
          1111111111111111111111111
          1000000000110000000000001
@@ -22,4 +21,3 @@ C 225,30,0
 11000001110101011111011110N0111
 111101111110101101111010001
 111111111111111111111111111
-

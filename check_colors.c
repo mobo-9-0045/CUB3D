@@ -12,21 +12,9 @@
 
 #include"cub3d.h"
 
-char *color_adjustement(t_var *var)
+static	void	ft_free(char **str)
 {
-	char *color;
-
-	color = ft_strchr(var->map_elmnt[var->i], ' ');
-	color = ft_strrchr(var->map_elmnt[var->i], ' ');
-	color = color + 1;
-	if (!color)
-		return (NULL);
-	return (color);
-}
-
-static void ft_free (char **str)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -45,8 +33,7 @@ int	check_floor_color(t_var *var)
 
 	var->f_colors = malloc(sizeof(int) * 3);
 	color = color_adjustement(var);
-	printf("color :%s<\n", color);
-	if (!color || !var->f_colors)
+	if (color == NULL || !var->f_colors)
 		return (1);
 	if (check_spaces(color) == 1)
 		return (1);
@@ -55,10 +42,11 @@ int	check_floor_color(t_var *var)
 	while (i < 3)
 	{
 		var->f_colors[i] = ft_atoi(color_elmnt[i]);
-		printf("%d\n", var->f_colors[i]);
 		i++;
 	}
 	ft_free(color_elmnt);
+	if (color)
+		free (color);
 	return (0);
 }
 
@@ -69,8 +57,8 @@ int	check_sky_color(t_var *var)
 	char	**color_elmnt;
 
 	var->c_colors = malloc(sizeof(int) * 3);
-	color = ft_strchr(var->map_elmnt[var->i], ' ');
-	if (!color)
+	color = color_adjustement(var);
+	if (color == NULL || !var->f_colors)
 		return (1);
 	color_elmnt = ft_split(color, ',');
 	i = 0;
@@ -80,23 +68,23 @@ int	check_sky_color(t_var *var)
 		i++;
 	}
 	ft_free(color_elmnt);
+	if (color)
+		free (color);
 	return (0);
 }
 
 int	check_colors(t_var *var)
 {
 	var->i = 0;
-	printf("--------->\n");
 	while (var->map_elmnt[var->i])
 	{
 		if (ft_strstr(var->map_elmnt[var->i], "F ") != NULL)
 			if (check_floor_color(var) == 1)
 				return (1);
-		if (ft_strstr(var->map_elmnt[var->i], "C ") != NULL)
+		if (ft_strstr(var->map_elmnt[var->i], "C ") != NULL )
 			if (check_sky_color(var) == 1)
 				return (1);
 		var->i++;
 	}
 	return (0);
 }
-
