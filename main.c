@@ -34,19 +34,6 @@ int	main(int argc, char **argv)
 		var = malloc(sizeof(t_var));
 		if (check_errors(var, argv) == 1)
 			return (1);
-		int i;
-		i = 0;
-		while (i < 3)
-		{
-			printf("%d\n", var->c_colors[i]);
-			i++;
-		}
-		i = 0;
-		while (i < 3)
-		{
-			printf("%d\n", var->f_colors[i]);
-			i++;
-		}
 		ft_free (var);
 		free (var);
 	}

@@ -12,6 +12,42 @@
 
 #include"cub3d.h"
 
+int	check_key_f(t_var *var)
+{
+	int	strlen_var;
+	int	i;
+
+	strlen_var = ft_strlen(var->map_elmnt[var->i]);
+	i = 0;
+	while (i < strlen_var)
+	{
+		if (var->map_elmnt[var->i][i] == 'F')
+			break ;
+		if (var->map_elmnt[var->i][i] > ' ')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	check_key_c(t_var *var)
+{
+	int	strlen_var;
+	int	i;
+
+	strlen_var = ft_strlen(var->map_elmnt[var->i]);
+	i = 0;
+	while (i < strlen_var)
+	{
+		if (var->map_elmnt[var->i][i] == 'C')
+			break ;
+		if (var->map_elmnt[var->i][i] > 33)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 char	*remove_spaces_in_end(char *str)
 {
 	int		i;
@@ -71,8 +107,15 @@ char	*color_adjustement(t_var *var)
 	char	*color;
 
 	color = ft_strchr(var->map_elmnt[var->i], ' ');
+	if (!color)
+		return (NULL);
 	color = remove_spaces_in_begin(color);
+	if (!color)
+		return (NULL);
 	color = remove_spaces_in_end(color);
+	if (!color)
+		return (NULL);
+	printf("|%s|\n", color);
 	if (ft_arealpha(color) == 1)
 		return (NULL);
 	if (ft_strcmp(color, "") == 0)

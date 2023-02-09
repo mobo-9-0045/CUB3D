@@ -54,5 +54,8 @@ int		ft_atoi(const char *str);
 int		check_colors(t_var *var);
 int		check_sky_color(t_var *var);
 int		check_floor_color(t_var *var);
+int		check_key_f(t_var *var);
+int		check_key_c(t_var *var);
+int		check_values(t_var *var);
 
 #endif

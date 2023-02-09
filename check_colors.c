@@ -12,6 +12,22 @@
 
 #include"cub3d.h"
 
+int	check_values(t_var *var)
+{
+	int	i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if (var->f_colors[i] > 255 || var->f_colors < 0)
+			return (1);
+		if (var->c_colors[i] > 255 || var->c_colors < 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 static	void	ft_free(char **str)
 {
 	int	i;
@@ -33,6 +49,8 @@ int	check_floor_color(t_var *var)
 
 	var->f_colors = malloc(sizeof(int) * 3);
 	color = color_adjustement(var);
+	if (check_key_f(var) == 1)
+		return (1);
 	if (color == NULL || !var->f_colors)
 		return (1);
 	if (check_spaces(color) == 1)
@@ -57,6 +75,8 @@ int	check_sky_color(t_var *var)
 	char	**color_elmnt;
 
 	var->c_colors = malloc(sizeof(int) * 3);
+	if (check_key_c(var) == 1)
+		return (1);
 	color = color_adjustement(var);
 	if (color == NULL || !var->f_colors)
 		return (1);
