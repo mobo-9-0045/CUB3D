@@ -12,12 +12,12 @@
 
 NAME = cub3d
 SRC = main.c checking_utils.c check_map.c get_next_line.c ft_split.c checking_utils2.c\
-		check_textures.c errors.c check_colors.c adjust_colors.c
+		check_textures.c errors.c check_colors.c adjust_colors.c check_keys.c
 
 all : ${NAME}
 
 ${NAME} : ${SRC}
-	gcc -Wall -Wextra -Werror -D BUFFER_SIZE=10 -lmlx -framework OpenGL -framework AppKit ${SRC} -o ${NAME}
+	gcc -Wall -Wextra -Werror -D BUFFER_SIZE=10 -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address ${SRC} -o ${NAME}
 
 clean :
 	rm -f ${NAME}

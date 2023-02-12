@@ -31,6 +31,8 @@ int	check_map(t_var *var, char **argv)
 		return (1);
 	}
 	var->map = get_next_line(fd_map);
+	if (var->map == NULL)
+		return (1);
 	return (0);
 }
 

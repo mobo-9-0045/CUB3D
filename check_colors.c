@@ -19,9 +19,9 @@ int	check_values(t_var *var)
 	i = 0;
 	while (i < 3)
 	{
-		if (var->f_colors[i] > 255 || var->f_colors < 0)
+		if (var->f_colors[i] > 255 || var->f_colors[i] < 0)
 			return (1);
-		if (var->c_colors[i] > 255 || var->c_colors < 0)
+		if (var->c_colors[i] > 255 || var->c_colors[i] < 0)
 			return (1);
 		i++;
 	}
@@ -59,6 +59,8 @@ int	check_floor_color(t_var *var)
 	i = 0;
 	while (i < 3)
 	{
+		if (color_elmnt[i] == NULL)
+			return (1);
 		var->f_colors[i] = ft_atoi(color_elmnt[i]);
 		i++;
 	}
@@ -84,6 +86,8 @@ int	check_sky_color(t_var *var)
 	i = 0;
 	while (i < 3)
 	{
+		if (color_elmnt[i] == NULL)
+			return (1);
 		var->c_colors[i] = ft_atoi(color_elmnt[i]);
 		i++;
 	}
@@ -98,10 +102,10 @@ int	check_colors(t_var *var)
 	var->i = 0;
 	while (var->map_elmnt[var->i])
 	{
-		if (ft_strstr(var->map_elmnt[var->i], "F ") != NULL)
+		if (ft_strstr(var->map_elmnt[var->i], "F") != NULL)
 			if (check_floor_color(var) == 1)
 				return (1);
-		if (ft_strstr(var->map_elmnt[var->i], "C ") != NULL )
+		if (ft_strstr(var->map_elmnt[var->i], "C") != NULL )
 			if (check_sky_color(var) == 1)
 				return (1);
 		var->i++;
