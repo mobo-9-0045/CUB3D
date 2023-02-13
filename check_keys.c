@@ -15,11 +15,17 @@
 int	check_map_component(t_var *var)
 {
 	var->i = 0;
-	while (var->map_elmnt[var->i])
+	if (var->checker == 6)
 	{
-		printf("%s\n", var->map_elmnt[var->i]);
-		var->i++;
+		var->i = var->checker;
+		while (var->map_elmnt[var->i])
+		{
+			printf("%s\n", var->map_elmnt[var->i]);
+			var->i++;
+		}
 	}
+	else
+		return (1);
 	return (0);
 }
 

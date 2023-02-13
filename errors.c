@@ -32,6 +32,7 @@ int	check_errors(t_var *var, char **argv)
 		ft_putstr("Error in map file\n", 2);
 		return (1);
 	}
+	var->checker = 6;
 	if (check_map_component(var) == 1)
 	{
 		ft_putstr("Error in map file\n", 2);

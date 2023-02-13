@@ -22,6 +22,7 @@ typedef struct s_var
 {
 	int		i;
 	int		j;
+	int		checker;
 	int		fd_map;
 	char	*map;
 	char	**map_elmnt;
