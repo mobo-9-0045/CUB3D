@@ -39,6 +39,11 @@ int	ft_check(t_var *var)
 		{
 			if (var->map_elmnt[var->i][var->j] >= 48)
 			{
+				if (var->map_elmnt[var->i][var->j] != '1'
+					&& var->map_elmnt[var->i][var->j] != '0'
+					&& var->map_elmnt[var->i][var->j] != 'P'
+					&& var->map_elmnt[var->i][var->j] != 'N')
+					return (1);
 				if (zero_check(var) == 1)
 					return (1);
 			}

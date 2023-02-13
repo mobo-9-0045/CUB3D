@@ -17,7 +17,7 @@ SRC = main.c checking_utils.c check_map.c get_next_line.c ft_split.c checking_ut
 all : ${NAME}
 
 ${NAME} : ${SRC}
-	gcc -Wall -Wextra -Werror -D BUFFER_SIZE=10 -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address ${SRC} -o ${NAME}
+	gcc -Wall -Wextra -Werror -D BUFFER_SIZE=10 -lmlx -framework OpenGL -framework AppKit ${SRC} -o ${NAME}
 
 clean :
 	rm -f ${NAME}
