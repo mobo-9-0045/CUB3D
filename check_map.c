@@ -14,25 +14,30 @@
 
 int	check_map(t_var *var, char **argv)
 {
-	int		fd_map;
 	char	*map_ext;
 
 	map_ext = ft_strrchr(argv[1], '.');
+	if (map_ext == NULL)
+		return (1);
 	if (ft_strcmp(map_ext, ".cub") != 0)
 	{
 		ft_putstr("map must be .cub extention\n", 2);
 		return (1);
 	}
-	fd_map = open (argv[1], O_RDONLY, 600);
-	if (fd_map < 0)
+	var->fd_map = open (argv[1], O_RDONLY, 600);
+	if (var->fd_map < 0)
 	{
 		ft_putstr("Error in map fd", 2);
-		close(fd_map);
+		close(var->fd_map);
 		return (1);
 	}
-	var->map = get_next_line(fd_map);
+	var->map = get_next_line(var->fd_map);
 	if (var->map == NULL)
+	{
+		ft_putstr("map must have valid component\n", 2);
 		return (1);
+	}
+	close(var->fd_map);
 	return (0);
 }
 

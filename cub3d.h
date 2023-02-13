@@ -22,6 +22,7 @@ typedef struct s_var
 {
 	int		i;
 	int		j;
+	int		fd_map;
 	char	*map;
 	char	**map_elmnt;
 	char	*path_so;
@@ -58,5 +59,6 @@ int		check_key_f(t_var *var);
 int		check_key_c(t_var *var);
 int		check_values(t_var *var);
 int		check_key_f(t_var *var);
+int		check_map_component(t_var *var);
 
 #endif

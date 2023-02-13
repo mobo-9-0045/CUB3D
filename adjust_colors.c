@@ -97,7 +97,6 @@ char	*color_adjustement(t_var *var)
 	color = remove_spaces_in_end(color);
 	if (!color)
 		return (NULL);
-	printf("|%s|\n", color);
 	if (ft_arealpha(color) == 1)
 		return (NULL);
 	if (ft_strcmp(color, "") == 0)

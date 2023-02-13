@@ -12,6 +12,17 @@
 
 #include"cub3d.h"
 
+int	check_map_component(t_var *var)
+{
+	var->i = 0;
+	while (var->map_elmnt[var->i])
+	{
+		printf("%s\n", var->map_elmnt[var->i]);
+		var->i++;
+	}
+	return (0);
+}
+
 int	check_key_f(t_var *var)
 {
 	int	strlen_var;
